@@ -1,0 +1,30 @@
+{
+  "name": "tinypack",
+  "version": "0.0.1",
+  "description": "module bundle all things",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc"
+  },
+  "files": [
+    "types",
+    "lib"
+  ],
+  "keywords": [
+    "tiny",
+    "pack",
+    "bundle"
+  ],
+  "author": "zeus",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7",
+    "@babel/preset-typescript": "^7.14.5",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^16.3.2",
+    "jest": "^27.0.6",
+    "typescript": "^4.3.5"
+  }
+}

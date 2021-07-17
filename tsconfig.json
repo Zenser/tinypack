@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "declarationDir": "types",
+        "outDir": "lib",
+        "target": "ES6",
+        "module": "CommonJS",
+        "lib": [
+            "ESNext",
+            "ESNext.Array"
+        ]
+    },
+    "include": [
+        "src"
+    ]
+}
