@@ -1,4 +1,4 @@
-import Parser, { ImportDeclaration } from './Parser';
+import Parser, { ImportDeclaration, UnResolvedToken } from './Parser';
 
 describe('Parser', () => {
   test('lexical: ImportDeclaration', () => {
@@ -45,11 +45,11 @@ describe('Parser', () => {
   });
 
   test('ast: single', () => {
-    const parser = new Parser(`import a from "a";`);
+    const parser = new Parser(`import a from "../a"`);
     const id = new ImportDeclaration();
     id.importsList = [{ binding: 'default', as: 'a' }];
-    id.fromClause = `"a"`;
-    expect(parser.parse().ast).toEqual([id]);
+    id.fromClause = '../a';
+    expect(parser.parse().ast.body).toEqual([id]);
   });
 
   test('ast: multi', () => {
@@ -60,12 +60,20 @@ describe('Parser', () => {
     const ida = new ImportDeclaration();
     const idb = new ImportDeclaration();
     ida.importsList = [{ binding: 'default', as: 'a' }];
-    ida.fromClause = `"a"`;
+    ida.fromClause = `a`;
     idb.importsList = [
       { binding: 'default', as: 'b' },
       { binding: 'bE', as: 'bE' },
     ];
-    idb.fromClause = `"b"`;
-    expect(parser.parse().ast).toEqual([ida, idb]);
+    idb.fromClause = `b`;
+    expect(parser.parse().ast.body).toEqual([
+      UnResolvedToken.create('\n'),
+      ida,
+      UnResolvedToken.create(';'),
+      UnResolvedToken.create('\n'),
+      idb,
+      UnResolvedToken.create(';'),
+      UnResolvedToken.create('\n'),
+    ]);
   });
 });

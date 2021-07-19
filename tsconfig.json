@@ -5,9 +5,10 @@
         "outDir": "lib",
         "target": "ES6",
         "module": "CommonJS",
+        "allowSyntheticDefaultImports": true,
         "lib": [
             "ESNext",
-            "ESNext.Array"
+            "ESNext.Array",
         ]
     },
     "include": [
