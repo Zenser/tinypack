@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import Module from './Module';
-import Parser, { ImportDeclaration } from './Parser';
+import Parser, { ImportDeclaration, RequireCallExpression } from './Parser';
 
 export default class ModuleParser {
   root: Module;
@@ -26,7 +26,8 @@ export default class ModuleParser {
 
     const parser = new Parser(node.content).parse();
     const ids = parser.ast.body.filter(
-      (d) => d instanceof ImportDeclaration,
+      (d) =>
+        d instanceof ImportDeclaration || d instanceof RequireCallExpression,
     ) as ImportDeclaration[];
 
     node.deps = ids.map((id) => {

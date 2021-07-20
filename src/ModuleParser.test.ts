@@ -25,7 +25,7 @@ describe('module parse', () => {
   test('mode module parse', () => {
     const mockFileMap = {
       '/path/entry.js': `import a from './a.js';`,
-      '/path/a.js': `import b from 'jest';`,
+      '/path/a.js': `import b from 'react-is';`,
     };
 
     const mp = new ModuleParser({

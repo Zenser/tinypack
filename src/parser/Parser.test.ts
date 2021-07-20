@@ -1,4 +1,6 @@
-import Parser, { ImportDeclaration, UnResolvedToken } from './Parser';
+import ImportDeclaration from './ImportDeclaration';
+import Parser from './Parser';
+import UnResolvedToken from './UnResolvedToken';
 
 describe('Parser', () => {
   test('lexical: ImportDeclaration', () => {
