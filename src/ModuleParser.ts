@@ -1,18 +1,28 @@
 import fs from 'fs';
 import path from 'path';
 import Module from './Module';
-import Parser, { ImportDeclaration, RequireCallExpression } from './Parser';
+import { BasePlugin } from './plugins';
 
 export default class ModuleParser {
   root: Module;
   workspace: string;
   fs: Pick<typeof fs, 'readFileSync'> = fs;
   path: Pick<typeof path, 'resolve'> = path;
+  plugins: BasePlugin[];
 
-  constructor({ entry, workspace }: { entry: string; workspace: string }) {
+  constructor({
+    entry,
+    workspace,
+    plugins,
+  }: {
+    entry: string;
+    workspace: string;
+    plugins: BasePlugin[];
+  }) {
     this.root = new Module();
     this.root.path = entry;
     this.workspace = workspace;
+    this.plugins = plugins;
   }
 
   compile() {}
@@ -22,27 +32,15 @@ export default class ModuleParser {
   }
 
   parseDependencyGraph(node: Module = this.root) {
-    node.content = this.fs.readFileSync(node.path).toString();
-
-    const parser = new Parser(node.content).parse();
-    const ids = parser.ast.body.filter(
-      (d) =>
-        d instanceof ImportDeclaration || d instanceof RequireCallExpression,
-    ) as ImportDeclaration[];
-
-    node.deps = ids.map((id) => {
-      const childModule = new Module();
-      const isRelativePath = ['.', '/'].includes(id.fromClause[0]);
-      if (isRelativePath) {
-        childModule.path = this.path.resolve(
-          path.dirname(node.path),
-          id.fromClause,
-        );
-      } else {
-        childModule.path = require.resolve(id.fromClause);
-      }
-      this.parseDependencyGraph(childModule);
-      return childModule;
+    this.plugins.forEach((plugin) => {
+      plugin.parse(node, () => {
+        /**
+         * 递归子依赖
+         */
+        node.deps.map((childModule) => {
+          this.parseDependencyGraph(childModule);
+        });
+      });
     });
     return node;
   }

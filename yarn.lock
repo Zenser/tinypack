@@ -2650,6 +2650,11 @@ ms@2.1.2:
   resolved "http://npm-registry.qunhequnhe.com/ms/download/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha1-0J0fNXtEP0kzgqjrPM0YOHKuYAk=
 
+nanoid@^3.1.23:
+  version "3.1.23"
+  resolved "http://npm-registry.qunhequnhe.com/nanoid/download/nanoid-3.1.23.tgz#f744086ce7c2bc47ee0a8472574d5c78e4183a81"
+  integrity sha1-90QIbOfCvEfuCoRyV01ceOQYOoE=
+
 natural-compare@^1.4.0:
   version "1.4.0"
   resolved "http://npm-registry.qunhequnhe.com/natural-compare/download/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
@@ -2795,6 +2800,15 @@ pkg-dir@^4.2.0:
   integrity sha1-8JkTPfft5CLoHR2ESCcO6z5CYfM=
   dependencies:
     find-up "^4.0.0"
+
+postcss@^8.3.6:
+  version "8.3.6"
+  resolved "http://npm-registry.qunhequnhe.com/postcss/download/postcss-8.3.6.tgz#2730dd76a97969f37f53b9a6096197be311cc4ea"
+  integrity sha1-JzDddql5afN/U7mmCWGXvjEcxOo=
+  dependencies:
+    colorette "^1.2.2"
+    nanoid "^3.1.23"
+    source-map-js "^0.6.2"
 
 prelude-ls@~1.1.2:
   version "1.1.2"
@@ -2984,6 +2998,11 @@ slash@^3.0.0:
   version "3.0.0"
   resolved "http://npm-registry.qunhequnhe.com/slash/download/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha1-ZTm+hwwWWtvVJAIg2+Nh8bxNRjQ=
+
+source-map-js@^0.6.2:
+  version "0.6.2"
+  resolved "http://npm-registry.qunhequnhe.com/source-map-js/download/source-map-js-0.6.2.tgz#0bb5de631b41cfbda6cfba8bd05a80efdfd2385e"
+  integrity sha1-C7XeYxtBz72mz7qL0FqA79/SOF4=
 
 source-map-support@^0.5.6:
   version "0.5.19"
