@@ -16,7 +16,34 @@ export default class JSLoadPlugin extends BasePlugin {
       node.deps = ids.map((id) => {
         return this.createChildModule(node, id.fromClause);
       });
+
+      node.targetContent = this.generateTargetContent(parser);
     }
     next();
+  }
+
+  generateTargetContent(parser: Parser) {
+    return parser.ast.body
+      .map((item) => {
+        if (item instanceof ImportDeclaration) {
+          let statements = [];
+          if (item.nameSpaceImport) {
+            statements.push(
+              `const ${item.nameSpaceImport} = require('${item.fromClause}');`,
+            );
+          }
+          item.importsList.forEach((i) => {
+            statements.push(
+              `const ${i.as} = require('${item.fromClause}').${i.binding};`,
+            );
+          });
+          return statements.join('\n');
+        } else if (item instanceof RequireCallExpression) {
+          return `require('${item.fromClause}')`;
+        } else {
+          return item.token;
+        }
+      })
+      .join(' ');
   }
 }
