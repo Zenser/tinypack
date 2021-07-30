@@ -33,7 +33,7 @@ export default class CSSLoadPlugin extends BasePlugin {
     });
     targetContent += `
       const style = document.createElement('style');
-      style.innerText = '${node.cssRoot.toResult().css}';
+      style.innerText = \`${node.cssRoot.toResult().css}\`;
       document.head.appendChild(style);
     `;
     node.targetContent = targetContent;

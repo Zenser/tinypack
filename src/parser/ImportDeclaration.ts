@@ -76,7 +76,7 @@ export default class ImportDeclaration {
       } else if (token === '*') {
         waklNameSpaceImport();
       } else if (token[0] === `"` || token[0] === `'`) {
-        id.fromClause = token;
+        id.fromClause = token.slice(1, -1);
         i++;
       } else if (IdentifierName.checkIsIdentifierName(token)) {
         walkImportedDefaultBinding();

@@ -5,12 +5,17 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "jest",
-    "build": "tsc"
+    "build": "tsc",
+    "demo-build": "cd demo && node ../bin/index.js ./src/index.js"
   },
   "files": [
+    "bin",
     "types",
     "lib"
   ],
+  "bin": {
+    "tinypack": "bin/index.js"
+  },
   "keywords": [
     "tiny",
     "pack",

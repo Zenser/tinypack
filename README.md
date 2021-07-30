@@ -2,7 +2,7 @@
 
 ## 功能特性
 
-- [ ] es/cjs module 打包
+- [x] es/cjs module 打包
 - [x] 零依赖
-- [ ] 支持 node_module resolve
-- [ ] More...
+- [x] 插件机制，支持 css 等非 js 模块打包
+- [x] 支持 node_module resolve

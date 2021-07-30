@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import Module from '../Module';
+import { Resolver } from '../Parser';
 
 export default class BasePlugin<Context extends Module = Module> {
   fs: Pick<typeof fs, 'readFileSync'> = fs;
@@ -14,12 +15,7 @@ export default class BasePlugin<Context extends Module = Module> {
 
   createChildModule(node: Context, importPath: string) {
     const childModule = new Module();
-    const isRelativePath = ['.', '/'].includes(importPath[0]);
-    if (isRelativePath) {
-      childModule.path = this.path.resolve(path.dirname(node.path), importPath);
-    } else {
-      childModule.path = require.resolve(importPath);
-    }
+    childModule.path = Resolver.resolve(node.path, importPath);
     return childModule;
   }
 }
