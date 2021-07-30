@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
 import Module from './Module';
 import { BasePlugin } from './plugins';
 
@@ -42,7 +42,7 @@ export default class ModuleParser {
         });
       });
     });
-    return node;
+    return this;
   }
 
   bundle() {
