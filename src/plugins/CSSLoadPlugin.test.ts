@@ -1,5 +1,4 @@
-import Module from '../Module';
-import CSSLoadPlugin from './CSSLoadPlugin';
+import CSSLoadPlugin, { CSSModule } from './CSSLoadPlugin';
 
 describe('CSSLoadPlugin', () => {
   test('should work', () => {
@@ -18,10 +17,10 @@ describe('CSSLoadPlugin', () => {
       },
     });
 
-    const node = new Module();
+    const node = new CSSModule();
     node.path = '/path/a.css';
     plugin.parse(node, () => {
-      console.log(node);
+      // console.log(node);
     });
   });
 });

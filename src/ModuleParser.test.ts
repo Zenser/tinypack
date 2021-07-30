@@ -21,13 +21,14 @@ describe('module parse', () => {
       },
     });
     mp.parseDependencyGraph();
-    console.log(mp.root.deps);
+    // console.log(mp.root.deps);
   });
 
   test('mode module parse', () => {
     const mockFileMap = {
       '/path/entry.js': `import a from './a.js';`,
       '/path/a.js': `import b from 'react-is';`,
+      '/path/bundle.js': ``,
     };
     const jsLoadPlugin = new JSLoadPlugin();
     const mp = new ModuleParser({
@@ -40,7 +41,16 @@ describe('module parse', () => {
         readFileSync: (k) => mockFileMap[k] || readFileSync(k),
       },
     });
+    let bundleFile = '';
+    mp.inject({
+      fs: {
+        readFileSync,
+        writeFileSync: (path, value) => (bundleFile = value.toString()),
+      }
+    });
+
     mp.parseDependencyGraph();
-    console.log(mp.root.deps[0].deps);
+    mp.bundle();
+    // console.log(mp.root.deps[0].deps);
   });
 });

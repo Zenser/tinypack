@@ -2,7 +2,7 @@ import postcss, { Root } from 'postcss';
 import Module from '../Module';
 import BasePlugin from './BasePlugin';
 
-class CSSModule extends Module {
+export class CSSModule extends Module {
   cssRoot: Root;
 }
 

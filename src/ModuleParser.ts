@@ -6,7 +6,7 @@ import { BasePlugin } from './plugins';
 export default class ModuleParser {
   root: Module;
   workspace: string;
-  fs: Pick<typeof fs, 'readFileSync'> = fs;
+  fs: Pick<typeof fs, 'readFileSync' | 'writeFileSync'> = fs;
   path: Pick<typeof path, 'resolve'> = path;
   plugins: BasePlugin[];
 
@@ -43,5 +43,29 @@ export default class ModuleParser {
       });
     });
     return node;
+  }
+
+  bundle() {
+    let source = '{';
+    source += this.generateSource(this.root, []).join('\n');
+    source += '}';
+    let tpl = this.fs
+      .readFileSync(this.path.resolve(__dirname, './Runtime.js'))
+      .toString();
+    tpl = tpl
+      .replace('ROOT_PATH_HOLDER', `'${this.root.path}'`)
+      .replace('SOURCE_MOD_HOLDER', source);
+    this.fs.writeFileSync(
+      this.path.resolve(this.workspace, './bundle.js'),
+      tpl,
+    );
+  }
+
+  private generateSource(mod: Module, output: string[]) {
+    output.push(`'${mod.path}': 
+    function(require, module, exports) { ${mod.targetContent} },
+    `);
+    mod.deps.forEach((i) => this.generateSource(i, output));
+    return output;
   }
 }
